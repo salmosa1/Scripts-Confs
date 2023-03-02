@@ -1,0 +1,120 @@
+{
+	"sTrigger": {
+		"prefix": "sTrigger",
+		"body": [
+			"trigger ${1:OnWhat}",
+			"begin",
+			"\t${2:Code}",
+			"end;"
+		],
+		"description": "Create Trigger"
+	},
+	"sColumn": {
+		"prefix": "sColumn",
+		"body": [
+			"column(${1:Name}) {}$2"
+		],
+		"description": "Create Column in Report"
+	},
+	"sFieldPage": {
+		"prefix": "sFieldPage",
+		"body": [
+			"field(${1:Name};)",
+			"{",
+			"\tApplicationArea = All;",
+			"}$2"
+		],
+		"description": "Create Field in Page"
+	},
+	"sActionPage": {
+		"prefix": "sActionPage",
+		"body": [
+			"action(${1:ActionName})",
+			"{",
+			"\tApplicationArea = All;",
+			"\tCaption = '${2:ActionCaption}', Comment = '${3:TradCaption}';",
+			"\t",
+			"\ttrigger OnAction();",
+			"\tbegin",
+			"\t\t${5}",
+			"\tend;",
+			"}"
+		],
+		"description": "Create Action in Page"
+	},
+	"sCaption": {
+		"prefix": "sCaption",
+		"body": [
+			"Caption = '${1:ActionCaption}', Comment = '${2:TradCaption}';$3",
+		],
+		"description": "Create Caption"
+	},
+	"sField": {
+		"prefix": "sField",
+		"body": [
+			"field(${1:id}; ${2:MyField}; ${3:Type})",
+			"{",
+			"\tCaption = '${4:MyFieldCaption}', Comment = '${5:MyFieldTrad}';",
+			"\tDataClassification = CustomerContent;",
+			"}$6"
+		],
+		"description": "Create Table Field"
+	},
+	"sOption": {
+		"prefix": "sFieldOption",
+		"body": [
+			"field(${1:id}; ${2:MyField}; Option)",
+			"{",
+			"\tCaption = '${4:MyFieldCaption}', Comment = '${5:MyFieldTrad}';",
+			"\tOptionMembers = ${6:Options};",
+			"\tOptionCaption = '${7:Options}', Comment = '${8:Translation}';",
+			"\tDataClassification = CustomerContent;",
+			"}$9"
+		],
+		"description": "Create Field Option Properties"
+	},
+	"sLabel": {
+		"prefix": "sLabel",
+		"body": [
+			"${1:LabelName}: Label '${2:LabelText}', Comment = '${3:LabelCaption}';$4",
+		],
+		"description": "Create Caption"
+	},
+	"sRepeat": {
+		"prefix": "sRepeat",
+		"body": [
+			"if ${1:TableName}.FindSet(false, false) then",
+			"\trepeat",
+			"\t\t${2:Code}",
+			"\tuntil ${1:TableName}.Next() = 0;"
+		],
+		"description": "Repeat"
+	},
+	"sCase": {
+		"prefix": "sCase",
+		"body": [
+			"case ${1:Field} of",
+			"\t${1:Field}::${2:Option}:",
+			"end;"
+		],
+		"description": "Case"
+	},
+	"sCode": {
+		"prefix": "sCode",
+		"body": [
+			"Code[${1:20}]$2",
+		],
+		"description": "Case"
+	},
+	"sValue": {
+		"prefix": "sValue",
+		"body": [
+			"value(${1:Id};${2:Value})",
+			"{",
+				"\tCaption = '${3:CaptionValue}', Comment = '${4:TransCaptionValue}';",
+			"}$5"
+		],
+		"description": "Enum Value"
+	}
+
+}

@@ -1,0 +1,8 @@
+-- Generar traducciones --
+Se deben poner en todos los captions, options y label el comentario con la traducción. De esta manera, añade como traducción, lo indicado en el comentario.
+
+- Buscar: 
+<note from="D(.*?)>(.*?)</note>
+
+- Reemplazar por: 
+<target>$2</target>\n\t\t\t\t\t<note from="D$1>$2</note>
