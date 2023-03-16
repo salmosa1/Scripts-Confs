@@ -1,13 +1,14 @@
 <# Arrancar como administrador #>
 start-process powershell –verb runAs
 
+<# Permite la instalación de librerias no firmadas #>
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 
 <# Instalar modulo navcontainer Obligatorio #>
 install-module bccontainerhelper -force
-update-module navcontainerhelper -force
+update-module bccontainerhelper
 
-<# comandos ver ayuda #>
+<# Comandos ver ayuda #>
 get-command -Module navcontainerhelper
 Get-Help New-NavContainer -full
 help new-navcontainer -detailed
@@ -27,9 +28,6 @@ docker container stop "NAV2018"
 
 <# Reiniciar un container #>
 docker container restart "NAV2018"
-
-<# Dar permisos para ejecutar comandos de NavContainer sin ejecutar como admin #>
-Check-NavContainerHelperPermissions -Fix
 
 <# Copiar un archivo del container a local #>
 Copy-FileFromNavContainer `
