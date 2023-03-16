@@ -14,7 +14,6 @@ New-BcContainer `
     -auth $auth `
     -artifactUrl $artifactUrl `
     -assignPremiumPlan `
-    -usessl `
     -licenseFile $LicenseFile `
     -updateHosts `
     -useBestContainerOS `
