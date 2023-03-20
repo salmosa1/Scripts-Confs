@@ -3,11 +3,12 @@ Para instalar Docker en una máquina virtual y que los contenedores sean visible
 desde el host (y cualquiera en la red)
 #>
 
-<#1. 
-Hay que activar el MacSpoofing. 
-    En VBox lo he solucionado poniendo la misma MAC para la red virtual que la mía.
-    En HyperV (no lo he probado)
-        Get-VMNetworkAdapter -VMName "nombre"  | set-VMNetworkAdapter -MacAddressSpoofing On        
+<#1.  
+En VBox lo he solucionado poniendo la misma MAC para la red virtual que la mía.
+    Crear dos redes
+        - Adaptador 1. Adaptador sólo-anfitrión. Configurar este para que tenga DHCP en VBox.
+        - Adaptador 2. Adaptador puente
+En HyperV
 #>
 
 #2. Se instala el docker normal
@@ -15,9 +16,8 @@ Hay que activar el MacSpoofing.
 #3. Se crea una nueva red "transparente"
 docker network create -d transparent dockernet
     #dockernet es el nombre de la red.
-
-#3a. Revisa que la red se ha creado
-docker network ls
+    #3a. Revisa que la red se ha creado
+        docker network ls
 
 <#4. 
 
@@ -41,5 +41,5 @@ Si ya tenias el contenedor creado puedes,
     
 <#5. 
     Tu contenedor deberia ser visible ya desde cualquier ordenador de la red. 
-    Se puede usar el nombre.
+    Se puede usar el nombre, como si estuvieras en local
 #>
