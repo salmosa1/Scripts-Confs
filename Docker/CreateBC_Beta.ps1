@@ -9,7 +9,7 @@ Get-BCArtifactUrl -select all -country es
 #BC Beta
 $sasToken = "?sv=2020-08-04&ss=b&srt=sco&spr=https&st=2022-03-15T00%3A00%3A00Z&se=2022-10-01T00%3A00%3A00Z&sp=rl&sig=4TsLNCqEFYV0xiPbjaasoGsoiKRimVNmYgSYTs9y2pk%3D"
 $artifactUrl = Get-BCArtifactUrl -country es -select nextmajor -sasToken $sasToken
-$credential = New-Object pscredential 'smorales', (ConvertTo-SecureString -String 'Sm11092015' -AsPlainText -Force)
+$credential = New-Object pscredential 'smorales', (ConvertTo-SecureString -String 'Sm16092024' -AsPlainText -Force)
 
 New-BCContainer -accept_eula `
     -alwaysPull `

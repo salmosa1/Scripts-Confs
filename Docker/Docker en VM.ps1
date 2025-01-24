@@ -33,7 +33,7 @@ Si ya tenias el contenedor creado puedes,
         docker network disconnect nat "nombreContenedor"
     
     Conectarlo a la nueva red
-    docker network connect dockernet "nombreContenedor"
+        docker network connect dockernet "nombreContenedor"
 #>
 
 #4a. Confirma que la IP de tu contenedor es del rango "normal"

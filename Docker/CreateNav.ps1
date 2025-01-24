@@ -1,6 +1,6 @@
 #Nav 2018 
 $artifactUrl = Get-NavArtifactUrl -nav 2018 -cu cu36 -country es
-$credential = New-Object pscredential 'smorales', (ConvertTo-SecureString -String 'Sm11092015' -AsPlainText -Force)
+$credential = New-Object pscredential 'smorales', (ConvertTo-SecureString -String 'Sm16092024' -AsPlainText -Force)
 
 New-NavContainer `
     -accept_eula `

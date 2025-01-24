@@ -1,8 +1,8 @@
 Function ImportNavModules {
-    Import-Module C:\"Program Files"\"Microsoft Dynamics 365 Business Central"\150\Service\"Microsoft.Dynamics.Nav.Model.Tools.dll"
+    #Import-Module C:\"Program Files"\"Microsoft Dynamics 365 Business Central"\210\Service\"Microsoft.Dynamics.Nav.Model.Tools.dll"
     #Import-Module C:\"Program Files"\"Microsoft Dynamics 365 Business Central"\150\Service\"Microsoft.Dynamics.Nav.Apps.Tools.dll"
-    Import-Module C:\"Program Files"\"Microsoft Dynamics 365 Business Central"\150\Service\"Microsoft.Dynamics.Nav.Apps.Management.dll"
-    Import-Module C:\"Program Files"\"Microsoft Dynamics 365 Business Central"\150\Service\"Microsoft.Dynamics.Nav.Management.dll"
+    Import-Module C:\"Program Files"\"Microsoft Dynamics 365 Business Central"\210\Service\"Microsoft.Dynamics.Nav.Apps.Management.dll"
+    Import-Module C:\"Program Files"\"Microsoft Dynamics 365 Business Central"\210\Service\"Microsoft.Dynamics.Nav.Management.dll"
 }
 
 Function ErrorMessage($MessageNo) {
@@ -16,7 +16,7 @@ Function ErrorMessage($MessageNo) {
             Break "Cancelado"
         }
         2 {
-            Write-Host "La version antigua es obligatoria" 
+            Write-Host "La versión antigua es obligatoria" 
             Break "Cancelado"
         }
         3 { 
@@ -31,12 +31,12 @@ Function ErrorMessage($MessageNo) {
 }
 
 Function Get-FileName($initialDirectory) {
-    [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
+    [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
     
-    $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
-    $OpenFileDialog.initialDirectory = $initialDirectory
-    $OpenFileDialog.filter = "APP (*.app)|*.app|License File (*.flf)|*.flf|Todo (*.*)|*.*"
-    $OpenFileDialog.ShowDialog() | Out-Null
+    $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+    $OpenFileDialog.initialDirectory = $initialDirectory
+    $OpenFileDialog.filter = "APP (*.app)|*.app|License File (*.flf)|*.flf|Todo (*.*)|*.*"
+    $OpenFileDialog.ShowDialog() | Out-Null
     if ($OpenFileDialog.FileName -eq "") { ErrorMessage(0) }
     else { return $OpenFileDialog.FileName  }
 }
@@ -45,11 +45,12 @@ Function Get-Extension {
     $extensions = Get-NAVAppTableModification -ServerInstance $ServerInstance
     
     for ($x = 0; $x -le $extensions.LongLength - 1; $x++) {
-        $texto = $x.ToString().PadLeft(2, ' ') + ' -- ' + $extensions[$x].Name.ToString().PadRight(35, ' ') + ' Publicador: ' + $extensions[$x].Publisher.ToString().PadRight(35, ' ') + ' Versi n: ' + $extensions[$x].Version.Major.ToString() + '.' + $extensions[$x].Version.Minor.ToString() + '.' + $extensions[$x].Version.Build.ToString() + '.' + $extensions[$x].Version.Revision.ToString()         
+        $version = $extensions[$x].Version.Major.ToString() + '.' + $extensions[$x].Version.Minor.ToString() + '.' + $extensions[$x].Version.Build.ToString() + '.' + $extensions[$x].Version.Revision.ToString()
+        $texto = $x.ToString().PadLeft(2, ' ') + ' -- ' + $extensions[$x].Name.ToString().PadRight(35, ' ') + ' Publicador: ' + $extensions[$x].Publisher.ToString().PadRight(20, ' ') + ' Versión: ' + $version.PadRight(20, ' ') + 'AppId: ' + $extensions[$x].AppId.ToString()
         Write-Host $texto
     }
         
-    $x = Read-Host "Que extensi n?"
+    $x = Read-Host "Que extensión?"
     if (!$extensions[$x]) { ErrorMessage(3) }
 
 
@@ -108,15 +109,15 @@ Function CheckAdminRights {
 }
 
 ###Code #################################################################################
-$opt = 1
+
+CheckAdminRights
+ImportNavModules
 
 Do
 {
-    CheckAdminRights
-    ImportNavModules
     $Title = "Hola!"
     $Info = "Que deseas hacer?"
- 
+    $opt = 2
     $options = [System.Management.Automation.Host.ChoiceDescription[]] @("&Salir", "&Instalar", "&Actualizar", "&Forzar Act.", "&Recreate", "&Despublicar", "R&einstalar", "&Publicar", "Cambiar &Licencia")
     [int]$defaultchoice = 1
     $opt = $host.UI.PromptForChoice($Title , $Info , $Options, $defaultchoice)
@@ -236,6 +237,6 @@ Do
             Restart-NAVServerInstance -ServerInstance $ServerInstance
         }
     }
+    ErrorMessage(99)
 }
 while($opt -ne 0)
-ErrorMessage(99)
