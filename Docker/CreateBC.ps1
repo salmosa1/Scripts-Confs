@@ -1,7 +1,7 @@
 $containerName = 'BC'
 $credential = New-Object pscredential 'smorales', (ConvertTo-SecureString -String 'Sm16092024' -AsPlainText -Force)
 $auth = 'UserPassword'
-$artifactUrl = Get-BcArtifactUrl -type 'Sandbox' -country 'es' -select 'Latest'
+$artifactUrl = Get-BcArtifactUrl -type 'Sandbox' -country 'es' -select 'Latest' -version 26
 $LicenseFile = "C:\Users\smorales\Servicios Implantacion DynamizaTIC, S.L\DynamizaTIC Corporativo - 000 - Licencias - Licencias\Dynamizatic\6460864_BC25.bclicense"
 
 New-BcContainer `
@@ -16,8 +16,6 @@ New-BcContainer `
     -updateHosts `
     -useBestContainerOS `
     -includeTestToolkit `
-    -includeTestLibrariesOnly `
-    -includeTestFrameworkOnly `
     -includeAL
 
 $containerName = 'BC'
