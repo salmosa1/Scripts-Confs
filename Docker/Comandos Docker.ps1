@@ -40,4 +40,3 @@ Copy-FileToNavContainer `
     -containerName "NAV2018-ES-CU5" `
     -containerPath "C:\Program Files\Microsoft Dynamics NAV\110\Service\CustomSettings.config" `
     -localPath "C:\Temp\CustomSettings.config"
-

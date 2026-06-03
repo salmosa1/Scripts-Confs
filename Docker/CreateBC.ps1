@@ -1,8 +1,10 @@
+#UserPassword
 $containerName = 'BC'
 $credential = New-Object pscredential 'smorales', (ConvertTo-SecureString -String 'Sm16092024.' -AsPlainText -Force)
 $auth = 'UserPassword'
-$artifactUrl = Get-BcArtifactUrl -type 'Sandbox' -country 'es' -select 'Latest' -version 26
-$LicenseFile = "C:\Users\smorales\Servicios Implantacion DynamizaTIC, S.L\DynamizaTIC Corporativo - 000 - Licencias - Licencias\Dynamizatic\6460864_BC25.bclicense"
+$artifactUrl = Get-BcArtifactUrl -type 'Sandbox' -country 'es' -select Latest -version 28
+#Get-BcArtifactUrl -type 'Sandbox' -country 'es' -select NextMinor -accept_insiderEula 
+#$LicenseFile = "C:\Users\smorales\Servicios Implantacion DynamizaTIC, S.L\DynamizaTIC Corporativo - 000 - Licencias - Licencias\Dynamizatic\6460864_BC27.bclicense"
 
 New-BcContainer `
     -accept_eula `
@@ -12,12 +14,14 @@ New-BcContainer `
     -auth $auth `
     -artifactUrl $artifactUrl `
     -assignPremiumPlan `
-    -licenseFile $LicenseFile `
     -updateHosts `
     -useBestContainerOS `
     -includeTestToolkit `
     -includeAL `
-    -dns "hostDNS"
+    -EnableTaskScheduler:$false `
+    #-useSSL true `
+    #-installCertificateOnHost `
+    #-licenseFile $LicenseFile `
 
 Import-TestToolkitToBcContainer -containerName BC -includePerformanceToolkit -includeTestLibrariesOnly
 
